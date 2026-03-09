@@ -1,9 +1,9 @@
-use std::hint;
 use cosmic_text::{Attrs, Buffer, Color, Family, FontSystem, Metrics, Shaping, SwashCache};
-use criterion::{criterion_group, criterion_main, Criterion};
-use glyphon::{
+use criterion::{Criterion, criterion_group, criterion_main};
+use paoglyph::{
     Cache, ColorMode, Resolution, TextArea, TextAtlas, TextBounds, TextRenderer, Viewport, Weight,
 };
+use std::hint;
 use wgpu::{MultisampleState, TextureFormat};
 
 mod state;
@@ -65,7 +65,7 @@ fn run_bench(ctx: &mut Criterion) {
                 .collect(),
         ),
     ] {
-        let buffers: Vec<glyphon::Buffer> = text_areas
+        let buffers: Vec<paoglyph::Buffer> = text_areas
             .iter()
             .copied()
             .map(|s| {

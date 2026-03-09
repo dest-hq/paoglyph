@@ -1,4 +1,4 @@
-use glyphon::{
+use paoglyph::{
     Attrs, Buffer, Cache, Color, ColorMode, Family, FontSystem, Metrics, Resolution, Shaping,
     SwashCache, TextArea, TextAtlas, TextBounds, TextRenderer, Viewport, Weight,
 };
@@ -45,10 +45,10 @@ struct WindowState {
 
     font_system: FontSystem,
     swash_cache: SwashCache,
-    viewport: glyphon::Viewport,
-    atlas: glyphon::TextAtlas,
-    text_renderer: glyphon::TextRenderer,
-    buffers: Vec<glyphon::Buffer>,
+    viewport: paoglyph::Viewport,
+    atlas: paoglyph::TextAtlas,
+    text_renderer: paoglyph::TextRenderer,
+    buffers: Vec<paoglyph::Buffer>,
 
     // Make sure that the winit window is last in the struct so that
     // it is dropped after the wgpu surface is dropped, otherwise the
@@ -108,7 +108,7 @@ impl WindowState {
         let attrs = Attrs::new().family(Family::SansSerif).weight(WEIGHT);
         let shaping = Shaping::Advanced;
 
-        let buffers: Vec<glyphon::Buffer> = SIZES
+        let buffers: Vec<paoglyph::Buffer> = SIZES
             .iter()
             .copied()
             .map(|s| {
@@ -163,7 +163,7 @@ impl winit::application::ApplicationHandler for Application {
         let (width, height) = (800, 600);
         let window_attributes = Window::default_attributes()
             .with_inner_size(LogicalSize::new(width as f64, height as f64))
-            .with_title("glyphon text sizes test");
+            .with_title("paoglyph text sizes test");
         let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
 
         self.window_state = Some(pollster::block_on(WindowState::new(window)));
@@ -269,6 +269,8 @@ impl winit::application::ApplicationHandler for Application {
                         swash_cache,
                     )
                     .unwrap();
+
+                window.pre_present_notify();
 
                 let frame = surface.get_current_texture().unwrap();
                 let view = frame.texture.create_view(&TextureViewDescriptor::default());

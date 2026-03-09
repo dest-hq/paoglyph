@@ -1,4 +1,4 @@
-use glyphon::{
+use paoglyph::{
     Attrs, Buffer, Cache, Color, ContentType, CustomGlyph, Family, FontSystem, Metrics,
     RasterizeCustomGlyphRequest, RasterizedCustomGlyph, Resolution, Shaping, SwashCache, TextArea,
     TextAtlas, TextBounds, TextRenderer, Viewport,
@@ -30,10 +30,10 @@ struct WindowState {
     surface_config: SurfaceConfiguration,
     font_system: FontSystem,
     swash_cache: SwashCache,
-    viewport: glyphon::Viewport,
-    atlas: glyphon::TextAtlas,
-    text_renderer: glyphon::TextRenderer,
-    text_buffer: glyphon::Buffer,
+    viewport: paoglyph::Viewport,
+    atlas: paoglyph::TextAtlas,
+    text_renderer: paoglyph::TextRenderer,
+    text_buffer: paoglyph::Buffer,
     rasterize_svg: Box<dyn Fn(RasterizeCustomGlyphRequest) -> Option<RasterizedCustomGlyph>>,
     // Make sure that the winit window is last in the struct so that
     // it is dropped after the wgpu surface is dropped, otherwise the
@@ -173,7 +173,7 @@ impl winit::application::ApplicationHandler for Application {
         let (width, height) = (800, 600);
         let window_attributes = Window::default_attributes()
             .with_inner_size(LogicalSize::new(width as f64, height as f64))
-            .with_title("glyphon hello world");
+            .with_title("paoglyph hello world");
         let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
 
         self.window_state = Some(pollster::block_on(WindowState::new(window)));

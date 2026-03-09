@@ -1,4 +1,4 @@
-use glyphon::{
+use paoglyph::{
     Attrs, Buffer, Cache, Color, Family, FontSystem, Metrics, Resolution, Shaping, SwashCache,
     TextArea, TextAtlas, TextBounds, TextRenderer, Viewport,
 };
@@ -26,10 +26,10 @@ struct WindowState {
 
     font_system: FontSystem,
     swash_cache: SwashCache,
-    viewport: glyphon::Viewport,
-    atlas: glyphon::TextAtlas,
-    text_renderer: glyphon::TextRenderer,
-    text_buffer: glyphon::Buffer,
+    viewport: paoglyph::Viewport,
+    atlas: paoglyph::TextAtlas,
+    text_renderer: paoglyph::TextRenderer,
+    text_buffer: paoglyph::Buffer,
 
     // Make sure that the winit window is last in the struct so that
     // it is dropped after the wgpu surface is dropped, otherwise the
@@ -87,7 +87,7 @@ impl WindowState {
             Some(physical_width),
             Some(physical_height),
         );
-        text_buffer.set_text(&mut font_system, "Hello world! 👋\nThis is rendered with 🦅 glyphon 🦁\nThe text below should be partially clipped.\na b c d e f g h i j k l m n o p q r s t u v w x y z", &Attrs::new().family(Family::SansSerif), Shaping::Advanced
+        text_buffer.set_text(&mut font_system, "Hello world! 👋\nThis is rendered with paoglyph \nThe text below should be partially clipped.\na b c d e f g h i j k l m n o p q r s t u v w x y z", &Attrs::new().family(Family::SansSerif), Shaping::Advanced
             ,None,);
         text_buffer.shape_until_scroll(&mut font_system, false);
 
@@ -121,7 +121,7 @@ impl winit::application::ApplicationHandler for Application {
         let (width, height) = (800, 600);
         let window_attributes = Window::default_attributes()
             .with_inner_size(LogicalSize::new(width as f64, height as f64))
-            .with_title("glyphon hello world");
+            .with_title("paoglyph hello world");
         let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
 
         self.window_state = Some(pollster::block_on(WindowState::new(window)));
