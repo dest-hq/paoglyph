@@ -4,6 +4,7 @@ description = "Fast, simple 2D text rendering for wgpu"
 version = "0.10.0"
 edition = "2024"
 license = "MIT OR Apache-2.0 OR Zlib"
+repository = "https://github.com/dest-hq/paoglyph"
 
 [dependencies]
 wgpu = { version = "28.0.0", default-features = false, features = ["wgsl"] }
